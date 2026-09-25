@@ -57,10 +57,10 @@ def build_targets(args, all_targets, dependencies):
         if args.system_boost:
             commands += f' -DUSE_INCLUDED_BOOST=0'
 
-        commands += f' -DPython_EXECUTABLE="{dependencies["python3"]}"'
+        commands += f' -DPython_EXECUTABLE="{dependencies["python3"]}" -DPYTHON_EXECUTABLE="{dependencies["python3"]}"'
         commands += f' -DCMAKE_C_COMPILER="{dependencies["gcc"]}" -DCMAKE_CXX_COMPILER="{dependencies["g++"]}"'
         if platform.system() == "Darwin":
-            commands = commands + " -DOMP_ROOT=" + subprocess.check_output("brew --prefix", shell=True).decode("utf-8")
+            commands = commands + " -DOMP_ROOT=" + subprocess.check_output("brew --prefix libomp", shell=True).decode("utf-8")
         subprocess.call(commands, shell=True)
 
     if args.all_targets:

@@ -52,7 +52,7 @@ def build_targets(args, all_targets, dependencies):
 
     if (not os.path.isfile("build/Makefile")):
         print("-- Running CMake.")
-        commands = f'cd build; rm -rf *; cmake .. -DCMAKE_BUILD_TYPE={"Debug" if args.debug else "Release"} -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake'
+        commands = f'cd build; rm -rf *; cmake .. -DCMAKE_BUILD_TYPE={"Debug" if args.debug else "Release"} -DCMAKE_TOOLCHAIN_FILE=vcpkg/scripts/buildsystems/vcpkg.cmake -DCMAKE_CXX_FLAGS="--param ggc-min-expand=20 --param ggc-min-heapsize=32768"'
 
         if args.system_boost:
             commands += f' -DUSE_INCLUDED_BOOST=0'
